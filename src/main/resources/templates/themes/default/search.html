@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="themes/default/header::header(title='搜索页面',keywords=null)"></div>
+<body class="bg-grey" gtools_scp_screen_capture_injected="true"> <!--[if lt IE 8]>
+<div class="browsehappy" role="dialog"> 当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a
+        href="http://browsehappy.com/" target="_blank">升级你的浏览器</a>。
+</div> <![endif]-->
+<div class="main-content page-page">
+    <div class="search-page">
+        <form id="search" class="search-form" method="post" action="https://www.linpx.com/" role="search"><span
+                class="search-box clearfix"> <input type="text" id="input" class="input" name="s" required="true"
+                                                    placeholder="Search..." maxlength="30" autocomplete="off"/> <button
+                type="submit" class="spsubmit"><i class="icon-search"></i></button> </span></form>
+        <div class="search-tags"><p>👇 The following tabs can help you!</p>
+
+            <th:block th:each="tag :${ metaList}">
+                <a th:href="'/tag/'+${tag.slug}" class=" bg-white" th:utext=" '#'+${tag.name}"></a>
+            </th:block>
+            <div class="search-tags-hr bg-deepgrey"></div>
+        </div>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/headroom/0.9.1/headroom.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.10.0/highlight.min.js"></script>
+<script src="https://www.linpx.com/usr/themes/pinghsu/js/instantclick.min.js?v20140319"></script>
+<script src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+<div th:replace="themes/default/footer::footer"></div>
+</html>

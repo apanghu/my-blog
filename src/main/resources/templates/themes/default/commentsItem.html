@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Title</title>
+</head>
+<body>
+<!--父循环-->
+<th:block th:fragment="row(comments,lv)">
+    <ol class="comment-list">
+        <th:block th:each="comment :${comments}">
+
+            <li th:id="'li-comment-'+${comment.coid}" class="comment-body comment-parent comment-odd">
+                <div th:id="'comment-'+${comment.coid}">
+                    <div class="comment-view" onclick="">
+                        <div class="comment-header">
+                            <!--设置get请求的参数-->
+                            <img class="avatar"
+                                 th:src="@{${commons.gravatar(comment.mail)}(s='80',r='G',d='')}"
+                                 th:title="${comment.author}"
+                                 width="80" height="80"/>
+                            <span class="comment-author">
+                                <a href="##" rel="external nofollow"
+                                   th:text="${comment.author}"></a>
+                            </span>
+                        </div>
+                        <div class="comment-content">
+                            <span class="comment-author-at">
+                                <a
+                                        th:utext="'@'+${comment.author}"
+                                        th:href="'#comment-' +${comment.parent}"></a></span>
+                            <p th:utext="${commons.article(comment.content)}"></p>
+                        </div>
+                        <div class="comment-meta">
+                            <time class="comment-time"
+                                  th:text="${commons.fmtdateByPatten(comment.created,'yyyy-MM-dd HH:mm:ss')}"></time>
+                            <span class="comment-reply">
+                                            <a rel="nofollow"
+                                               th:onclick="'javascript:TaleComment.reply('+${comment.coid}+')'">回复</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--判断是否子循环-->
+                <th:block th:unless="${#lists.isEmpty(comment.children)}"
+                          th:include="themes/default/commentsItem::row(${comment.children},${lv+1})"/>
+            </li>
+
+        </th:block>
+    </ol>
+</th:block>
+
+
+</body>
+</html>

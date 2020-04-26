@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.blog.website.dao.MailBoxVoMapper">
+    <resultMap id="BaseResultMap" type="com.my.blog.website.modal.Vo.MailBoxVo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="smtp_server" jdbcType="VARCHAR" property="SMTPServer"/>
+        <result column="smtp_port" jdbcType="INTEGER" property="SMTPPort"/>
+        <result column="email_address" jdbcType="VARCHAR" property="emailAddress"/>
+        <result column="email_password" jdbcType="VARCHAR" property="emailPassword"/>
+        <result column="receiver" jdbcType="VARCHAR" property="receiver"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, smtp_server, smtp_port, email_address, email_password,receiver
+  </sql>
+
+    <select id="select" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mailbox
+        limit 1
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_mailbox
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.my.blog.website.modal.Vo.MailBoxVo" useGeneratedKeys="true" keyProperty="id">
+        insert into t_mailbox ( SMTP_server, SMTP_port,
+        email_address, email_password,receiver
+        )
+        values (#{SMTPServer,jdbcType=VARCHAR}, #{SMTPPort,jdbcType=INTEGER},
+        #{emailAddress,jdbcType=VARCHAR}, #{emailPassword,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.my.blog.website.modal.Vo.MailBoxVo">
+        update t_mailbox
+        set SMTP_server = #{SMTPServer,jdbcType=VARCHAR},
+        SMTP_port = #{SMTPPort,jdbcType=INTEGER},
+        email_address = #{emailAddress,jdbcType=VARCHAR},
+        email_password = #{emailPassword,jdbcType=VARCHAR},
+        receiver = #{receiver,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
