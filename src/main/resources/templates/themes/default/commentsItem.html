@@ -26,9 +26,9 @@
                         </div>
                         <div class="comment-content">
                             <span class="comment-author-at">
-                                <a
-                                        th:utext="'@'+${comment.author}"
-                                        th:href="'#comment-' +${comment.parent}"></a></span>
+                                <a th:if="${comment.parent !=0}"
+                                   th:utext="'@'+${comment.author}"
+                                   th:href="'#comment-' +${comment.parent}"></a></span>
                             <p th:utext="${commons.article(comment.content)}"></p>
                         </div>
                         <div class="comment-meta">

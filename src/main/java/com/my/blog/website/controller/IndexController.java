@@ -10,7 +10,10 @@ import com.my.blog.website.modal.Bo.ArchiveBo;
 import com.my.blog.website.modal.Bo.CommentBo;
 import com.my.blog.website.modal.Bo.RestResponseBo;
 import com.my.blog.website.modal.Vo.*;
-import com.my.blog.website.service.*;
+import com.my.blog.website.service.ICommentService;
+import com.my.blog.website.service.IContentService;
+import com.my.blog.website.service.IMetaService;
+import com.my.blog.website.service.ISiteService;
 import com.my.blog.website.utils.*;
 import com.vdurmont.emoji.EmojiParser;
 import org.apache.commons.lang3.StringUtils;
@@ -45,8 +48,6 @@ public class IndexController extends BaseController {
 
     @Resource
     private ISiteService siteService;
-    @Resource
-    private IOptionService optionService;
 
 
     /**
@@ -377,7 +378,6 @@ public class IndexController extends BaseController {
         return this.render("page");
     }
 
-
     /**
      * 搜索页
      *
@@ -506,7 +506,6 @@ public class IndexController extends BaseController {
     public String search(HttpServletRequest request) {
         List<MetaDto> metaList = metaService.getMetaList(Types.TAG.getType(), null, 10);
         request.setAttribute("metaList", metaList);
-
         return this.render("search");
     }
 }

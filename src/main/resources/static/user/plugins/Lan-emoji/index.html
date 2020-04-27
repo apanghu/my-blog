@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <script type="text/javascript" src="dist/js/lan-emoji.js"></script>
+  <link rel="stylesheet" href="dist/css/lan-emoji.css">
+  <link rel="stylesheet" href="dist/css/index.css">
+</head>
+
+<body>
+  <div class="page-header">
+    <h1 class="project-name">Lan-emoji</h1>
+    <h2 class="project-tagline">editable div has ability to insert emoji.
+      <br>Div 具備插入表情功能</h2>
+    <a href="https://github.com/chingfanglin/Lan-emoji" class="btn">View on GitHub</a>
+    <a href="https://github.com/chingfanglin/Lan-emoji/zipball/master" class="btn">Download .zip</a>
+    <a href="https://github.com/chingfanglin/Lan-emoji/tarball/master" class="btn">Download .tar.gz</a>
+  </div>
+
+  <div class="main-content container">
+    <div class="features">
+      <div>
+        <h2>功能 features</h2>
+        <ul>
+          <li>不須引用其他 Framework/Library。
+            <br>No need to reference other Framework/Library.
+          </li>
+          <li>簡易的產生表情功能。
+            <br>Easy to generate emoji.
+          </li>
+          <li>支持將表情代碼轉圖片, 表情圖片轉代碼。
+            <br>Support for specifying the code format of emoji.
+          </li>
+        </ul>
+      </div>
+    </div>
+    <h2>示例 demo</h2>
+    <div class="demo">
+      <div>
+        <div class="emoji__contain">
+          <div class="contain">
+            <div class="cantain">完整功能</div>
+            <div id="emoji"></div>
+            <div id="editArea" name="editArea" contenteditable="true"></div>
+            <div class="action">
+              <img id="btn" class="paperfly__img" src="dist/img/tieba/7.jpg" />
+              <button onclick="emojiChange()">emojiChange</button>
+              <button onclick="emojiParse()">emojiParse</button>
+              <button onclick="emojiToggle()">emojiToggle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code">
+        <pre class="hljs">
+          <code>
+              &lt;body&gt;
+                &lt;div id="emoji"&gt;&lt;/div&gt;
+              &lt;/body&gt;
+
+              const option = {
+                editor: 'editArea',   //editable div id
+                btn: 'btn',           //button id
+                icon: [{
+                  path: 'dist/img/tieba',
+                  alias: {
+                    1: "hehe",
+                    2: "haha",
+                    3: "tushe",
+                    4: "a",
+                    5: "ku",
+                    6: "lu",
+                    7: "kaixin",
+                    8: "han",
+                    9: "lei",
+                    10: "heixian",
+                    11: "bishi",
+                    12: "bugaoxing",
+                    13: "zhenbang",
+                    14: "qian",
+                    15: "yiwen",
+                    16: "yinxian",
+                    17: "tu",
+                    18: "yi",
+                    19: "weiqu",
+                    20: "huaxin",
+                    21: "hu",
+                    22: "xiaonian",
+                    23: "neng",
+                    24: "taikaixin",
+                    25: "huaji",
+                    26: "mianqiang",
+                    27: "kuanghan",
+                    28: "guai",
+                    29: "shuijiao",
+                    30: "jinku",
+                    31: "shengqi",
+                    32: "jinya",
+                    33: "pen",
+                    34: "aixin",
+                    35: "xinsui",
+                    36: "meigui",
+                    37: "liwu",
+                    38: "caihong",
+                    39: "xxyl",
+                    40: "taiyang",
+                    41: "qianbi",
+                    42: "dnegpao",
+                    43: "chabei",
+                    44: "dangao",
+                    45: "yinyue",
+                    46: "haha2",
+                    47: "shenli",
+                    48: "damuzhi",
+                    49: "ruo",
+                    50: "OK"
+                  }
+                }]
+              }
+          
+              var _emoji = new emoji(option)
+          
+              function emojiChange() {
+                _emoji.emojiChange()
+              }
+          
+              function emojiParse() {
+                const editArea = document.querySelectorAll('#editArea')
+                _emoji.emojiParse(editArea)
+              }
+          </code>
+        </pre>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div>
+        <div class="emoji__contain">
+          <div class="contain">
+            <div class="cantain">文本轉換 text parse</div>
+            <div id="emoji"></div>
+            <div id="editAreaParse" name="editAreaParse" contenteditable="true">
+              Today :taiyang: is a beautiful day :aixin:
+            </div>
+            <div class="action">
+              <button onclick="editAreaParse()">emojiParse</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code">
+        <pre class="hljs">
+            <code>
+                &lt;body&gt;
+                  &lt;div id="emoji"&gt;&lt;/div&gt;
+                &lt;/body&gt;
+                
+                const _option = {
+                  icon: [{
+                    path: 'dist/img/tieba',
+                    alias: {
+                      1: "hehe",
+                      2: "haha",
+                      3: "tushe",
+                      4: "a",
+                      5: "ku",
+                      6: "lu",
+                      7: "kaixin",
+                      8: "han",
+                      9: "lei",
+                      10: "heixian",
+                      11: "bishi",
+                      12: "bugaoxing",
+                      13: "zhenbang",
+                      14: "qian",
+                      15: "yiwen",
+                      16: "yinxian",
+                      17: "tu",
+                      18: "yi",
+                      19: "weiqu",
+                      20: "huaxin",
+                      21: "hu",
+                      22: "xiaonian",
+                      23: "neng",
+                      24: "taikaixin",
+                      25: "huaji",
+                      26: "mianqiang",
+                      27: "kuanghan",
+                      28: "guai",
+                      29: "shuijiao",
+                      30: "jinku",
+                      31: "shengqi",
+                      32: "jinya",
+                      33: "pen",
+                      34: "aixin",
+                      35: "xinsui",
+                      36: "meigui",
+                      37: "liwu",
+                      38: "caihong",
+                      39: "xxyl",
+                      40: "taiyang",
+                      41: "qianbi",
+                      42: "dnegpao",
+                      43: "chabei",
+                      44: "dangao",
+                      45: "yinyue",
+                      46: "haha2",
+                      47: "shenli",
+                      48: "damuzhi",
+                      49: "ruo",
+                      50: "OK"
+                    }
+                  }]
+                }
+            
+                var _emoji_ = new emoji(_option)
+            
+                function editAreaParse() {
+                  _emoji_.emojiParse(document.querySelectorAll('#editAreaParse'))
+                }
+            </code>
+          </pre>
+      </div>
+    </div>
+
+    <div class="usage">
+
+      <div>
+
+        <h2>使用 usage</h2>
+        
+        <h3>安装 install</h3>
+        <pre class="hljs"><code class="bash">$ npm install lan-emoji</code></pre>
+        
+        <h3>引用 reference</h3>
+        <p>
+          直接引用css文件和js文件 並將圖片放置資料夾裡
+        </p>
+        <pre class="hljs">
+          <code class="html">
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="css/lan.emoji.css"/&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script src="js/lan.emoji.js">&lt;/script&gt;
+
+    &lt;div id="emoji"&gt;&lt;/div&gt;
+  &lt;/body&gt;
+          </code>
+        </pre>
+      </div>
+    </div>
+
+    <div class="usage">
+
+      <div>
+
+        <h2>方法 method</h2>
+        <h3>切換顯示隱藏表情面板。 show or hide emoji panel.</h3>
+        <pre class="hljs"><code class="bash">_emoji.toggle()</code></pre>
+      </div>
+    </div>
+    <footer class="site-footer">
+      <span class="site-footer-owner">
+        <a href="https://github.com/chingfanglin/Lan-emoji">
+          Lan-emoji
+        </a> is maintained by
+        <a href="https://github.com/chingfanglin">chingfanglin</a>.</span>
+    </footer>
+  </div>
+
+  <script>
+
+    const option = {
+      editor: 'editArea',
+      btn: 'btn',
+      icon: [{
+        path: 'dist/img/tieba',
+        alias: {
+          1: "hehe",
+          2: "haha",
+          3: "tushe",
+          4: "a",
+          5: "ku",
+          6: "lu",
+          7: "kaixin",
+          8: "han",
+          9: "lei",
+          10: "heixian",
+          11: "bishi",
+          12: "bugaoxing",
+          13: "zhenbang",
+          14: "qian",
+          15: "yiwen",
+          16: "yinxian",
+          17: "tu",
+          18: "yi",
+          19: "weiqu",
+          20: "huaxin",
+          21: "hu",
+          22: "xiaonian",
+          23: "neng",
+          24: "taikaixin",
+          25: "huaji",
+          26: "mianqiang",
+          27: "kuanghan",
+          28: "guai",
+          29: "shuijiao",
+          30: "jinku",
+          31: "shengqi",
+          32: "jinya",
+          33: "pen",
+          34: "aixin",
+          35: "xinsui",
+          36: "meigui",
+          37: "liwu",
+          38: "caihong",
+          39: "xxyl",
+          40: "taiyang",
+          41: "qianbi",
+          42: "dnegpao",
+          43: "chabei",
+          44: "dangao",
+          45: "yinyue",
+          46: "haha2",
+          47: "shenli",
+          48: "damuzhi",
+          49: "ruo",
+          50: "OK"
+        }
+      }]
+    }
+
+    var _emoji = new emoji(option)
+
+    function emojiChange() {
+      _emoji.emojiChange()
+    }
+
+    function emojiParse() {
+      _emoji.emojiParse(document.querySelectorAll('#editArea'))
+    }
+
+    function emojiToggle() {
+      _emoji.toggle()
+    }
+
+    const _option = {
+      icon: [{
+        path: 'dist/img/tieba',
+        alias: {
+          1: "hehe",
+          2: "haha",
+          3: "tushe",
+          4: "a",
+          5: "ku",
+          6: "lu",
+          7: "kaixin",
+          8: "han",
+          9: "lei",
+          10: "heixian",
+          11: "bishi",
+          12: "bugaoxing",
+          13: "zhenbang",
+          14: "qian",
+          15: "yiwen",
+          16: "yinxian",
+          17: "tu",
+          18: "yi",
+          19: "weiqu",
+          20: "huaxin",
+          21: "hu",
+          22: "xiaonian",
+          23: "neng",
+          24: "taikaixin",
+          25: "huaji",
+          26: "mianqiang",
+          27: "kuanghan",
+          28: "guai",
+          29: "shuijiao",
+          30: "jinku",
+          31: "shengqi",
+          32: "jinya",
+          33: "pen",
+          34: "aixin",
+          35: "xinsui",
+          36: "meigui",
+          37: "liwu",
+          38: "caihong",
+          39: "xxyl",
+          40: "taiyang",
+          41: "qianbi",
+          42: "dnegpao",
+          43: "chabei",
+          44: "dangao",
+          45: "yinyue",
+          46: "haha2",
+          47: "shenli",
+          48: "damuzhi",
+          49: "ruo",
+          50: "OK"
+        }
+      }]
+    }
+
+    var _emoji_ = new emoji(_option)
+
+    function editAreaParse() {
+      _emoji_.emojiParse(document.querySelectorAll('#editAreaParse'))
+    }
+  </script>
+</body>
+
+</html>

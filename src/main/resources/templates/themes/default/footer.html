@@ -47,7 +47,8 @@
                             <a
                                     href="https://github.com/zhisheng17/blog" target="_blank"
                                     rel="nofollow">My Blog</a> 保留一切权利
-                            <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1275311783'%3E%3C/span%3E%3Cscript src='https://s5.cnzz.com/z_stat.php%3Fid%3D1275311783%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+                            <script type="text/javascript"
+                                    src="https://s5.cnzz.com/z_stat.php?id=1275311783&web_id=1275311783"></script>
                         </p>
                     </div>
                 </div>
@@ -204,6 +205,15 @@
         }
     });
     header.init();
+
+    //搜索功能
+    $(".spsubmit").bind("click", function () {
+        var q = $("#search-inp").val();
+        if (q && q != '') {
+            window.location.href = '/search/' + q;
+        }
+    })
+
     $('#search-inp').keypress(function (e) {
         var key = e.which; //e.which是按键的值
         if (key == 13) {
@@ -230,138 +240,137 @@
     /*]]>*/
 </script>
 <script type="text/javascript">
-    /**
-     * 重置emoji表情取值问题
-     */
-    const option = {
-        editor: 'editArea',   //editable div id
-        btn: 'btn',           //button id
-        icon: [{
-            path: '/admin/plugins/Lan-emoji/dist/img/tieba',
-            alias: {
-                1: "hehe",
-                2: "haha",
-                3: "tushe",
-                4: "a",
-                5: "ku",
-                6: "lu",
-                7: "kaixin",
-                8: "han",
-                9: "lei",
-                10: "heixian",
-                11: "bishi",
-                12: "bugaoxing",
-                13: "zhenbang",
-                14: "qian",
-                15: "yiwen",
-                16: "yinxian",
-                17: "tu",
-                18: "yi",
-                19: "weiqu",
-                20: "huaxin",
-                21: "hu",
-                22: "xiaonian",
-                23: "neng",
-                24: "taikaixin",
-                25: "huaji",
-                26: "mianqiang",
-                27: "kuanghan",
-                28: "guai",
-                29: "shuijiao",
-                30: "jinku",
-                31: "shengqi",
-                32: "jinya",
-                33: "pen",
-                34: "aixin",
-                35: "xinsui",
-                36: "meigui",
-                37: "liwu",
-                38: "caihong",
-                39: "xxyl",
-                40: "taiyang",
-                41: "qianbi",
-                42: "dnegpao",
-                43: "chabei",
-                44: "dangao",
-                45: "yinyue",
-                46: "haha2",
-                47: "shenli",
-                48: "damuzhi",
-                49: "ruo",
-                50: "OK"
-            }
-        }]
-    }
+    var option = null;
     if ($("#editArea").length > 0) {
-        var _emoji = new emoji(option);
-        //emoji表情转字符
-        _emoji.emojiChange();
-        //重置emoji表情（字符表情转emoji）
-        _emoji.emojiParse(document.querySelectorAll("#editArea"));
-        _emoji.emojiParse(document.querySelectorAll(".comment-list p"));
+        /**
+         * 重置emoji表情取值问题
+         */
+        option = {
+            editor: 'editArea',   //editable div id
+            btn: 'btn',           //button id
+            icon: [{
+                path: '/user/plugins/Lan-emoji/dist/img/tieba',
+                alias: {
+                    1: "hehe",
+                    2: "haha",
+                    3: "tushe",
+                    4: "a",
+                    5: "ku",
+                    6: "lu",
+                    7: "kaixin",
+                    8: "han",
+                    9: "lei",
+                    10: "heixian",
+                    11: "bishi",
+                    12: "bugaoxing",
+                    13: "zhenbang",
+                    14: "qian",
+                    15: "yiwen",
+                    16: "yinxian",
+                    17: "tu",
+                    18: "yi",
+                    19: "weiqu",
+                    20: "huaxin",
+                    21: "hu",
+                    22: "xiaonian",
+                    23: "neng",
+                    24: "taikaixin",
+                    25: "huaji",
+                    26: "mianqiang",
+                    27: "kuanghan",
+                    28: "guai",
+                    29: "shuijiao",
+                    30: "jinku",
+                    31: "shengqi",
+                    32: "jinya",
+                    33: "pen",
+                    34: "aixin",
+                    35: "xinsui",
+                    36: "meigui",
+                    37: "liwu",
+                    38: "caihong",
+                    39: "xxyl",
+                    40: "taiyang",
+                    41: "qianbi",
+                    42: "dnegpao",
+                    43: "chabei",
+                    44: "dangao",
+                    45: "yinyue",
+                    46: "haha2",
+                    47: "shenli",
+                    48: "damuzhi",
+                    49: "ruo",
+                    50: "OK"
+                }
+            }]
+        }
+    } else if ($("#newComments").length > 0) {
+        //首页底部的最新评论
+        option = {
+            icon: [{
+                path: '/user/plugins/Lan-emoji/dist/img/tieba',
+                alias: {
+                    1: "hehe",
+                    2: "haha",
+                    3: "tushe",
+                    4: "a",
+                    5: "ku",
+                    6: "lu",
+                    7: "kaixin",
+                    8: "han",
+                    9: "lei",
+                    10: "heixian",
+                    11: "bishi",
+                    12: "bugaoxing",
+                    13: "zhenbang",
+                    14: "qian",
+                    15: "yiwen",
+                    16: "yinxian",
+                    17: "tu",
+                    18: "yi",
+                    19: "weiqu",
+                    20: "huaxin",
+                    21: "hu",
+                    22: "xiaonian",
+                    23: "neng",
+                    24: "taikaixin",
+                    25: "huaji",
+                    26: "mianqiang",
+                    27: "kuanghan",
+                    28: "guai",
+                    29: "shuijiao",
+                    30: "jinku",
+                    31: "shengqi",
+                    32: "jinya",
+                    33: "pen",
+                    34: "aixin",
+                    35: "xinsui",
+                    36: "meigui",
+                    37: "liwu",
+                    38: "caihong",
+                    39: "xxyl",
+                    40: "taiyang",
+                    41: "qianbi",
+                    42: "dnegpao",
+                    43: "chabei",
+                    44: "dangao",
+                    45: "yinyue",
+                    46: "haha2",
+                    47: "shenli",
+                    48: "damuzhi",
+                    49: "ruo",
+                    50: "OK"
+                }
+            }]
+        }
     }
-    //首页底部的最新评论
-    const _option = {
-        icon: [{
-            path: '/admin/plugins/Lan-emoji/dist/img/tieba',
-            alias: {
-                1: "hehe",
-                2: "haha",
-                3: "tushe",
-                4: "a",
-                5: "ku",
-                6: "lu",
-                7: "kaixin",
-                8: "han",
-                9: "lei",
-                10: "heixian",
-                11: "bishi",
-                12: "bugaoxing",
-                13: "zhenbang",
-                14: "qian",
-                15: "yiwen",
-                16: "yinxian",
-                17: "tu",
-                18: "yi",
-                19: "weiqu",
-                20: "huaxin",
-                21: "hu",
-                22: "xiaonian",
-                23: "neng",
-                24: "taikaixin",
-                25: "huaji",
-                26: "mianqiang",
-                27: "kuanghan",
-                28: "guai",
-                29: "shuijiao",
-                30: "jinku",
-                31: "shengqi",
-                32: "jinya",
-                33: "pen",
-                34: "aixin",
-                35: "xinsui",
-                36: "meigui",
-                37: "liwu",
-                38: "caihong",
-                39: "xxyl",
-                40: "taiyang",
-                41: "qianbi",
-                42: "dnegpao",
-                43: "chabei",
-                44: "dangao",
-                45: "yinyue",
-                46: "haha2",
-                47: "shenli",
-                48: "damuzhi",
-                49: "ruo",
-                50: "OK"
-            }
-        }]
-    }
-    if ($("#newComments").length > 0) {
-        var _emoji_ = new emoji(_option);
-        _emoji_.emojiParse(document.querySelectorAll("#newComments"));
-    }
+    var _emoji = new emoji(option);
+    //emoji表情转字符
+    _emoji.emojiChange();
+    //重置emoji表情（字符表情转emoji）
+    _emoji.emojiParse(document.querySelectorAll("#editArea"));
+    _emoji.emojiParse(document.querySelectorAll(".comment-list p"));
+    _emoji.emojiParse(document.querySelectorAll("#newComments"));
 </script>
 <!--<script type="text/javascript">
     //By https://www.cnblogs.com/skyhu365/p/12652916.html
