@@ -117,13 +117,6 @@
             <version>1.2.10</version>
         </dependency>
 
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.0.18</version>
-        </dependency>-->
-
-
         <!--过滤emoji字符-->
         <dependency>
             <groupId>com.vdurmont</groupId>
