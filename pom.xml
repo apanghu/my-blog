@@ -9,6 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+
+
     <groupId>com.my.blog.website</groupId>
     <artifactId>my-blog</artifactId>
     <packaging>jar</packaging>
