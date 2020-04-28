@@ -123,8 +123,8 @@ public class IndexController extends BaseController {
      * @param author
      * @return
      */
-    @GetMapping(value = {"/author"})
-    public String getAuthorArticle(HttpServletRequest request, @RequestParam("author") String author) {
+    @GetMapping(value = "author/{author}")
+    public String getAuthorArticle(HttpServletRequest request, @PathVariable("author") String author) {
         List<ArchiveBo> archives = siteService.getAuthorArticle(author);
         request.setAttribute("archives", archives);
         return this.render("archives");
@@ -280,7 +280,15 @@ public class IndexController extends BaseController {
             }
             // 设置对每个文章1分钟可以评论一次
             cache.hset(Types.COMMENTS_FREQUENCY.getType(), val, 1, 60);
-            sendEmaliMethod(comments, comments.getCid().toString());
+            //回复评论
+            if (comments.getParent() != null && comments.getParent() != 0) {
+                CommentVo commentVo1 = commentService.getCommentById(comments.getParent());
+                replyComment(comments, commentVo1.getMail(), comments.getCid().toString());
+            } else {
+                //回复文章
+                replyArticle(comments, comments.getCid().toString());
+            }
+
             return RestResponseBo.ok();
         } catch (Exception e) {
             String msg = "评论发布失败";
@@ -485,16 +493,42 @@ public class IndexController extends BaseController {
      * @return : void
      * @author Jesse-liu
      * @date 2020/4/21
-     * @description: 邮件发送方法
+     * @description: 回复文章评论邮件发送方法
      **/
-    public void sendEmaliMethod(CommentVo commentVo, String cid) {
+    public void replyArticle(CommentVo commentVo, String cid) {
         ContentVo contents = contentService.getContents(cid);
         MailBoxVo mailBoxVo = (MailBoxVo) MapCache.single().get("mailBoxVo");
         MailVo mailVo = new MailVo(mailBoxVo.getReceiver(),
                 "文章：" +
                         contents.getTitle() + "  有一条新评论",
-                "文章：" +
+                "文章标题：" +
                         contents.getTitle() +
+                        "\r\n文章链接：" +
+                        Commons.permalink(Integer.parseInt(cid), null) +
+                        "\r\n评论人：" + commentVo.getAuthor() +
+                        "\r\n评论人邮箱：" + commentVo.getMail() +
+                        "\r\n评论人网址：" + commentVo.getUrl() +
+                        "\r\n评论内容：" + commentVo.getContent());
+        SendMailManager.addMail(mailVo);
+    }
+
+    /**
+     * @param commentVo 评论实体
+     * @param cid       文章cid
+     * @return : void
+     * @author Jesse-liu
+     * @date 2020/4/21
+     * @description: 回复评论邮件发送方法
+     **/
+    public void replyComment(CommentVo commentVo, String receiver, String cid) {
+        ContentVo contents = contentService.getContents(cid);
+        MailVo mailVo = new MailVo(receiver,
+                "文章：" +
+                        contents.getTitle() + " 有人回复了您的评论",
+                "文章标题：" +
+                        contents.getTitle() +
+                        "\r\n文章链接：" +
+                        Commons.permalink(Integer.parseInt(cid), null) +
                         "\r\n评论人：" + commentVo.getAuthor() +
                         "\r\n评论人邮箱：" + commentVo.getMail() +
                         "\r\n评论人网址：" + commentVo.getUrl() +

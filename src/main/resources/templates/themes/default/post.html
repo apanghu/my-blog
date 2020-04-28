@@ -28,7 +28,7 @@
                  th:title="${article.authorId}"
                  width="80" height="80"/>
             <span class="comment-author">
-                                <a th:href="${commons.site_url('/author')}+'?author='+${article.author}"
+                                <a th:href="${commons.site_url('/author')}+'/'+${article.author}"
                                    rel="external nofollow"
                                    th:text="${article.author}"></a>
                             </span>

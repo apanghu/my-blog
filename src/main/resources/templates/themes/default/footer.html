@@ -66,7 +66,7 @@
                     最新评论</h3>
                 <th:block th:each="newComment:${newComments}">
                     <li>
-                        <a th:href="${newComment.cid}"
+                        <a th:href="${commons.permalink(newComment.cid,'')}"
                            th:utext="''+${newComment.author}+'：'+${newComment.content}">
                         </a>
                     </li>
@@ -240,7 +240,7 @@
     /*]]>*/
 </script>
 <script type="text/javascript">
-    var option = null;
+    var option;
     if ($("#editArea").length > 0) {
         /**
          * 重置emoji表情取值问题
@@ -370,7 +370,7 @@
     //重置emoji表情（字符表情转emoji）
     _emoji.emojiParse(document.querySelectorAll("#editArea"));
     _emoji.emojiParse(document.querySelectorAll(".comment-list p"));
-    _emoji.emojiParse(document.querySelectorAll("#newComments"));
+    _emoji.emojiParse(document.querySelectorAll("#newComments li a"));
 </script>
 <!--<script type="text/javascript">
     //By https://www.cnblogs.com/skyhu365/p/12652916.html
