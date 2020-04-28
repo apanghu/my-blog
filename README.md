@@ -6,7 +6,6 @@ fork from [My Blog](https://github.com/zhisheng17/blog) , 该作者是在 [Tale]
 
 `My-Blog` 使用的是 springBoot + Mybatis + thymeleaf 打造的一个个人博客模板。
 
-
 喜欢该项目的话，可以给项目点个 star，如果你想在这基础上修改，那么建议你 fork 该项目，然后再修改哦。
 
 ## 功能如下：
