@@ -352,8 +352,9 @@ public class IndexController extends BaseController {
     @GetMapping(value = "links")
     public String links(HttpServletRequest request) {
         List<MetaVo> links = metaService.getMetas(Types.LINK.getType());
-
+        ContentVo contents = contentService.getContents("links");
         request.setAttribute("is_post", true);
+        request.setAttribute("article", contents);
         request.setAttribute("links", links);
         return this.render("links");
     }
