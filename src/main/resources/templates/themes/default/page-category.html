@@ -5,7 +5,9 @@
 <div class="main-content common-page clearfix">
     <div class="categorys-item">
         <div class="common-title">
-            <th:block th:text="${type}"/> : <th:block th:text="${keyword}"/>
+            <th:block th:text="${type}"/>
+            :
+            <th:block th:text="${keyword}"/>
         </div>
         <th:block th:if="${commons.is_empty(articles)}">
             <div>
@@ -20,12 +22,15 @@
                             <div class="post-list-item-container ">
                                 <div class="item-label ">
                                     <div class="item-title">
-                                        <a th:href="${commons.permalink(article)}" th:text="${article.title}"></a>
+                                        <a th:href="${commons.permalink(article)}"
+                                           th:text="${#strings.abbreviate(article.title,80)}"></a>
                                     </div>
                                     <div class="item-meta clearfix">
                                         <div th:class="'item-meta-ico '+${commons.show_icon(article.cid)} "
                                              th:style="'background: url('+@{/user/img/bg-ico.png}+') no-repeat;background-size: 40px auto;'"></div>
-                                        <div class="item-meta-date">发布于 <th:block th:text="${commons.fmtdate(article.created)}"/></div>
+                                        <div class="item-meta-date">发布于
+                                            <th:block th:text="${commons.fmtdate(article.created)}"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

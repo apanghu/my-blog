@@ -19,7 +19,7 @@
                     <div class="item-slant"></div>
                     <div class="item-label">
                         <div class="item-title"><a th:href="${commons.permalink(article)}"
-                                                   th:text="${#strings.abbreviate(article.title,30)}"></a>
+                                                   th:text="${#strings.abbreviate(article.title,50)}"></a>
                         </div>
                         <div class="item-meta clearfix">
                             <div th:class="'item-meta-ico '+ ${commons.show_icon(article.cid)}"
