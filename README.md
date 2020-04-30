@@ -1,8 +1,6 @@
 ## Blog
 
-fork from [My Blog](https://github.com/zhisheng17/blog) , 该作者是在 [Tale](https://github.com/otale/tale) 博客系统基础上进行修改的。
-
-`Tale` 使用了轻量级 mvc 框架 `Blade` 开发，默认主题使用了漂亮的 `pinghsu` 。
+ 该项目是在[My Blog](https://github.com/zhisheng17/blog) 的基础上进行优化开发的，默认主题使用了漂亮的 `pinghsu` 。
 
 `My-Blog` 使用的是 springBoot + Mybatis + thymeleaf 打造的一个个人博客模板。
 
