@@ -353,12 +353,7 @@ public class IndexController extends BaseController {
     public String links(HttpServletRequest request) {
         List<MetaVo> links = metaService.getMetas(Types.LINK.getType());
 
-        ContentVo contents = contentService.getContents("links");
-        request.setAttribute("article", contents);
         request.setAttribute("is_post", true);
-        completeArticle(request, contents);
-        updateArticleHit(contents.getCid(), contents.getHits());
-
         request.setAttribute("links", links);
         return this.render("links");
     }
