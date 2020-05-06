@@ -72,7 +72,6 @@
                                 <input name="tags" id="tags" type="text" class="form-control" placeholder="请填写文章标签"
                                        th:value="${contents!=null and contents.tags !=null}?${contents.tags}: ''"/>
                             </div>
-
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control" placeholder="请输入文章作者" name="author"
                                        required="required"
@@ -82,6 +81,7 @@
 
                             <div class="form-group col-md-6">
                                 <select id="multiple-sel" class="select2 form-control" multiple="multiple"
+                                        name="categories"
                                         data-placeholder="请选择分类...">
                                     <th:block th:if="${null == categories}">
                                         <option value="默认分类" selected="selected">默认分类</option>
@@ -96,12 +96,36 @@
                             </div>
 
 
+                            <div class="form-group col-md-6">
+                                <select class="select2 form-control" name="top"
+                                        data-placeholder="是否置顶...">
+                                    <th:block th:if="${contents !=null}">
+                                        <th:block
+                                                th:if="${(contents !=null  and contents.top==null )||(contents !=null  and !contents.top) }">
+                                            <option value="false" selected="selected">不置顶</option>
+                                            <option value="true">置顶</option>
+                                        </th:block>
+                                        <th:block th:if="${contents !=null  and contents.top}">
+                                            <option value="false">不置顶</option>
+                                            <option value="true" selected="selected">置顶</option>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block th:unless="${contents !=null}">
+                                        <option value="false" selected="selected">不置顶</option>
+                                        <option value="true">置顶</option>
+                                    </th:block>
+
+                                </select>
+                            </div>
+
+
                             <div class="clearfix"></div>
 
                             <div id="test-editor">
                                 <textarea style="height: 450px" autocomplete="off" id="text" name="content"
                                           th:utext="${contents!=null and contents.content !=null}?${contents.content}: ''"></textarea>
                             </div>
+
 
                             <div class="form-group col-md-3 col-sm-4">
                                 <label class="col-sm-4">开启评论</label>

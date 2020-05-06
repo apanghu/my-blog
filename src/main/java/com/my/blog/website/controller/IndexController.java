@@ -280,15 +280,17 @@ public class IndexController extends BaseController {
             }
             // 设置对每个文章1分钟可以评论一次
             cache.hset(Types.COMMENTS_FREQUENCY.getType(), val, 1, 60);
-            //回复评论
-            if (comments.getParent() != null && comments.getParent() != 0) {
-                CommentVo commentVo1 = commentService.getCommentById(comments.getParent());
-                replyComment(comments, commentVo1.getMail(), comments.getCid().toString());
-            } else {
-                //回复文章
-                replyArticle(comments, comments.getCid().toString());
+            //回复评论------>邮件通知
+            String email_notification = WebConst.initConfig.get("email_notification");
+            if (StringUtils.isNotBlank(email_notification) && "1".equalsIgnoreCase(email_notification)) {
+                if (comments.getParent() != null && comments.getParent() != 0) {
+                    CommentVo commentVo1 = commentService.getCommentById(comments.getParent());
+                    replyComment(comments, commentVo1.getMail(), comments.getCid().toString());
+                } else {
+                    //回复文章
+                    replyArticle(comments, comments.getCid().toString());
+                }
             }
-
             return RestResponseBo.ok();
         } catch (Exception e) {
             String msg = "评论发布失败";

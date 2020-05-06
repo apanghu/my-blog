@@ -5,6 +5,9 @@
 <article class="main-content page-page" itemscope="" itemtype="http://schema.org/Article">
     <div class="post-header">
         <h1 class="post-title" itemprop="name headline">
+            <th:block th:if="${article.top}">
+                <span style="color: red;font-size: 18px">[置顶]</span>
+            </th:block>
             <a th:href="${commons.permalink(article)}" th:text="${article.title}" data-no-instant=""></a>
         </h1>
         <div class="post-data">

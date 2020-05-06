@@ -107,10 +107,24 @@ public class ContentVo extends BaseRowModel implements Serializable {
     private Boolean allowFeed;
 
     /**
+     * 文章置顶
+     */
+    @ExcelIgnore
+    private Boolean top;
+
+    /**
      * 内容文字
      */
     @ExcelProperty(value = "内容文字", index = 1)
     private String content;
+
+    public Boolean getTop() {
+        return top;
+    }
+
+    public void setTop(Boolean top) {
+        this.top = top;
+    }
 
     public String getAuthor() {
         return author;

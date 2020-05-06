@@ -186,7 +186,7 @@ public class SettingController extends BaseController {
 
     @PostMapping("mailBoxTest")
     @ResponseBody
-    RestResponseBo mailBoxTest() {
+    public RestResponseBo mailBoxTest() {
         try {
             MailBoxVo mailBoxVo = (MailBoxVo) MapCache.single().get("mailBoxVo");
             MailVo mailVo = new MailVo(mailBoxVo.getReceiver(), "通信邮箱测试", "通信邮箱测试\r\n");

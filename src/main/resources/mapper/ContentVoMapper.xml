@@ -18,6 +18,7 @@
         <result column="allow_comment" jdbcType="BIT" property="allowComment"/>
         <result column="allow_ping" jdbcType="BIT" property="allowPing"/>
         <result column="allow_feed" jdbcType="BIT" property="allowFeed"/>
+        <result column="top" jdbcType="BIT" property="top"/>
     </resultMap>
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.my.blog.website.modal.Vo.ContentVo">
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
@@ -84,7 +85,7 @@
     </sql>
     <sql id="Base_Column_List">
     cid, title, slug, created, modified, author_id, type, status, tags, categories, hits, 
-    comments_num, allow_comment, allow_ping, allow_feed ,author
+    comments_num, allow_comment, allow_ping, allow_feed ,author,top
   </sql>
     <sql id="Blob_Column_List">
     content
@@ -154,13 +155,13 @@
         type, status, tags,
         categories, hits, comments_num,
         allow_comment, allow_ping, allow_feed,
-        content,author)
+        content,author,top)
         values (#{cid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{slug,jdbcType=VARCHAR},
         #{created,jdbcType=INTEGER}, #{modified,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER},
         #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR},
         #{categories,jdbcType=VARCHAR}, #{hits,jdbcType=INTEGER}, #{commentsNum,jdbcType=INTEGER},
         #{allowComment,jdbcType=BIT}, #{allowPing,jdbcType=BIT}, #{allowFeed,jdbcType=BIT},
-        #{content,jdbcType=LONGVARCHAR}, #{author,jdbcType=VARCHAR})
+        #{content,jdbcType=LONGVARCHAR}, #{author,jdbcType=VARCHAR}, #{top,jdbcType=BIT})
     </insert>
     <insert id="insertSelective" parameterType="com.my.blog.website.modal.Vo.ContentVo" useGeneratedKeys="true"
             keyProperty="cid">
@@ -356,7 +357,8 @@
         allow_ping = #{record.allowPing,jdbcType=BIT},
         allow_feed = #{record.allowFeed,jdbcType=BIT},
         content = #{record.content,jdbcType=LONGVARCHAR},
-        author = #{record.author,jdbcType=VARCHAR}
+        author = #{record.author,jdbcType=VARCHAR},
+        top = #{record.top,jdbcType=BIT}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -378,7 +380,8 @@
         allow_comment = #{record.allowComment,jdbcType=BIT},
         allow_ping = #{record.allowPing,jdbcType=BIT},
         allow_feed = #{record.allowFeed,jdbcType=BIT},
-        author = #{record.author,jdbcType=VARCHAR}
+        author = #{record.author,jdbcType=VARCHAR},
+        top = #{record.top,jdbcType=BIT}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -434,6 +437,12 @@
             <if test="content != null">
                 content = #{content,jdbcType=LONGVARCHAR},
             </if>
+            <if test="top != null">
+                top = #{top,jdbcType=BIT},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR}
+            </if>
         </set>
         where cid = #{cid,jdbcType=INTEGER}
     </update>
@@ -454,7 +463,8 @@
         allow_ping = #{allowPing,jdbcType=BIT},
         allow_feed = #{allowFeed,jdbcType=BIT},
         content = #{content,jdbcType=LONGVARCHAR},
-        author = #{author,jdbcType=VARCHAR}
+        author = #{author,jdbcType=VARCHAR},
+        top = #{top,jdbcType=BIT}
         where cid = #{cid,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.my.blog.website.modal.Vo.ContentVo">
@@ -473,7 +483,8 @@
         allow_comment = #{allowComment,jdbcType=BIT},
         allow_ping = #{allowPing,jdbcType=BIT},
         allow_feed = #{allowFeed,jdbcType=BIT},
-        author = #{author,jdbcType=VARCHAR}
+        author = #{author,jdbcType=VARCHAR},
+        top = #{top,jdbcType=BIT}
         where cid = #{cid,jdbcType=INTEGER}
     </update>
 

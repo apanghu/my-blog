@@ -67,7 +67,17 @@
                                         </div>
                                     </div>
 
-                                    <input type="hidden" name="allow_install" id="allow_install"/>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">邮件通知</label>
+                                        <div class="col-md-9">
+                                            <div th:class="${options.email_notification!=null and options.email_notification=='1'}?'toggle toggle-success allow-true':'toggle toggle-success allow-false'"
+                                                 onclick="allowEmailNotification(this);"></div>
+                                            <input type="hidden" name="email_notification"
+                                                   th:value="${options!=null and options.email_notification !=null}?${options.email_notification}: '0'"
+                                                   id="emailNotification"/>
+
+                                        </div>
+                                    </div>
                                     <div class="clearfix pull-right">
                                         <button type="button" class="btn btn-primary waves-effect waves-light"
                                                 onclick="saveSetting()">
@@ -184,8 +194,6 @@
                                         </div>
                                     </div>
 
-
-                                    <input type="hidden" name="allow_install" id="allow_install"/>
                                     <div class="clearfix pull-right">
                                         <button type="button" class="btn btn-info waves-effect waves-light"
                                                 onclick="saveMailBoxSetting()">
@@ -241,6 +249,40 @@
     /*<![CDATA[*/
     var tale = new $.tale();
 
+    $('.toggle').toggles({
+        on: true,
+        drag: false,
+        text: {
+            on: '开启',
+            off: '关闭'
+        }
+    });
+
+    $('div.allow-false').toggles({
+        off: true,
+        drag: false,
+        text: {
+            on: '开启',
+            off: '关闭'
+        }
+    });
+
+    /**
+     * 邮件通知开启
+     * */
+    function allowEmailNotification(obj) {
+        //TODO 该处获取的是点击前的状态（可通过JQUERY的bind绑定按钮点击事件获取点击后的效果状态）
+        var this_ = $(obj);
+        // console.debug(obj.innerHTML)
+        var on = this_.find('.toggle-on.active').length;
+        var off = this_.find('.toggle-off.active').length;
+        if (on == 1) {
+            $('#emailNotification').val(0);
+        }
+        if (off == 1) {
+            $('#emailNotification').val(1);
+        }
+    }
 
     /**
      * 保存全局设置
@@ -319,21 +361,6 @@
                 }
             }
         });
-    }
-
-    /**
-     * 设置是否允许重新安装
-     */
-    function allow_reinstall(obj) {
-        var this_ = $(obj);
-        var on = this_.find('.toggle-on.active').length;
-        var off = this_.find('.toggle-off.active').length;
-        if (on == 1) {
-            $('#allow_install').val(0);
-        }
-        if (off == 1) {
-            $('#allow_install').val(1);
-        }
     }
 
     /**

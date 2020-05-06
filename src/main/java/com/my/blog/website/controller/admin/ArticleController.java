@@ -182,6 +182,39 @@ public class ArticleController extends BaseController {
         return RestResponseBo.ok();
     }
 
+
+    /**
+     * 文章置顶/取消置顶
+     *
+     * @param cid
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/top")
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    public RestResponseBo top(@RequestParam int cid, HttpServletRequest request) {
+        try {
+            ContentVo contents = contentsService.getContents(Integer.toString(cid));
+            if (contents.getTop()) {
+                contents.setTop(false);
+            } else {
+                contents.setTop(true);
+            }
+            contentsService.updateArticle(contents);
+            logService.insertLog(LogActions.DEL_ARTICLE.getAction(), cid + "", request.getRemoteAddr(), this.getUid(request));
+        } catch (Exception e) {
+            String msg = "文章置顶/取消置顶失败";
+            if (e instanceof TipException) {
+                msg = e.getMessage();
+            } else {
+                LOGGER.error(msg, e);
+            }
+            return RestResponseBo.fail(msg);
+        }
+        return RestResponseBo.ok();
+    }
+
     /**
      * @return : java.lang.String
      * @author Jesse-liu

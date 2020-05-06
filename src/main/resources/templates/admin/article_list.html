@@ -20,6 +20,7 @@
                                 <th>浏览量</th>
                                 <th>所属分类</th>
                                 <th width="8%">发布状态</th>
+                                <th width="8%">置顶状态</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -29,25 +30,50 @@
                                     <td>
                                         <a th:href="@{'/admin/article/'+${post.cid}}" th:text="${post.title}"></a>
                                     </td>
-                                    <td><th:block th:text="${commons.fmtdate(post.created, 'yyyy-MM-dd HH:mm:ss')}"/></td>
-                                    <td><th:block th:text="${post.hits}"/></td>
-                                    <td><th:block th:text="${post.categories}"/></td>
+                                    <td>
+                                        <th:block th:text="${commons.fmtdate(post.created, 'yyyy-MM-dd HH:mm:ss')}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${post.hits}"/>
+                                    </td>
+                                    <td>
+                                        <th:block th:text="${post.categories}"/>
+                                    </td>
                                     <td>
                                         <th:block th:if="${post.status == 'publish'}">
                                             <span class="label label-success">已发布</span>
                                         </th:block>
-                                       <th:block th:if="${post.status == 'draft'}">
-                                           <span class="label label-default">草稿</span>
-                                       </th:block>
+                                        <th:block th:if="${post.status == 'draft'}">
+                                            <span class="label label-default">草稿</span>
+                                        </th:block>
+                                    </td>
+                                    <td>
+                                        <th:block th:if="${post.top}">
+                                            <span class="label label-purple">已置顶</span>
+                                        </th:block>
+                                        <th:block th:if="${post.top == null || !post.top}">
+                                            <span class="label label-default">未置顶</span>
+                                        </th:block>
                                     </td>
                                     <td>
                                         <a th:href="@{'/admin/article/'+${post.cid}}"
                                            class="btn btn-primary btn-sm waves-effect waves-light m-b-5"><i
                                                 class="fa fa-edit"></i> <span>编辑</span></a>
+                                        <th:block th:if="${post.top}">
+                                            <a class="btn btn-pink btn-sm waves-effect waves-light m-b-5"
+                                               href="javascript:void(0)" th:onclick="'topPost('+${post.cid}+');'"><i
+                                                    class="fa fa-rocket"></i> <span>取消</span></a>
+                                        </th:block>
+                                        <th:block th:if="${post.top == null || !post.top}">
+                                            <a class="btn btn-pink btn-sm waves-effect waves-light m-b-5"
+                                               href="javascript:void(0)" th:onclick="'topPost('+${post.cid}+');'"><i
+                                                    class="fa fa-rocket"></i> <span>置顶</span></a>
+                                        </th:block>
                                         <a href="javascript:void(0)" th:onclick="'delPost('+${post.cid}+');'"
                                            class="btn btn-danger btn-sm waves-effect waves-light m-b-5"><i
                                                 class="fa fa-trash-o"></i> <span>删除</span></a>
-                                        <a class="btn btn-warning btn-sm waves-effect waves-light m-b-5" th:href="${commons.permalink(post)}+'/preview'"
+                                        <a class="btn btn-warning btn-sm waves-effect waves-light m-b-5"
+                                           th:href="${commons.permalink(post)}+'/preview'"
                                            target="_blank"><i
                                                 class="fa fa-rocket"></i> <span>预览</span></a>
                                     </td>
@@ -68,15 +94,16 @@
 <script type="text/javascript">
     /*<![CDATA[*/
     var tale = new $.tale();
+
     function delPost(cid) {
         tale.alertConfirm({
-            title:'确定删除该文章吗?',
+            title: '确定删除该文章吗?',
             then: function () {
                 tale.post({
-                    url : '/admin/article/delete',
+                    url: '/admin/article/delete',
                     data: {cid: cid},
                     success: function (result) {
-                        if(result && result.success){
+                        if (result && result.success) {
                             tale.alertOkAndReload('文章删除成功');
                         } else {
                             tale.alertError(result.msg || '文章删除失败');
@@ -86,6 +113,27 @@
             }
         });
     }
+
+    function topPost(cid) {
+        tale.alertConfirm({
+            title: '确定置顶/取消置顶该文章吗?',
+            then: function () {
+                tale.post({
+                    url: '/admin/article/top',
+                    data: {cid: cid},
+                    success: function (result) {
+                        if (result && result.success) {
+                            tale.alertOkAndReload('文章置顶/取消置顶成功');
+                        } else {
+                            tale.alertError(result.msg || '文章置顶/取消置顶失败');
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
     /*]]>*/
 </script>
 </body>
