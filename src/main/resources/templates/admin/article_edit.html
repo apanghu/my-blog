@@ -40,7 +40,6 @@
                     </div>
                     <div class="col-md-12">
                         <form id="articleForm" role="form" novalidate="novalidate">
-                            <input type="hidden" name="categories" id="categories"/>
                             <input type="hidden" name="cid"
                                    th:value="${contents!=null and contents.cid!=null}?${contents.cid}: ''" id="cid"/>
                             <input type="hidden" name="status"
