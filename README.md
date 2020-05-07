@@ -30,7 +30,7 @@
 
 11、修正后台模板问题
 
-12、文章作者添加
+12、章作者添加
 
 13、添加文章置顶/取消置顶功能
 
@@ -61,14 +61,14 @@
  管理首页：
  ![](img/admin-index.png)
  
- 导入文章：
+ 发布文章：
  ![](img/admin-article.png)
  
- 发布文章：
- ![](img/admin-publish.png)
+导入文章：
+ ![](img/admin-import-article.png)
  
  文章管理：
- ![](img/admin-article.png)
+ ![](img/admin-article2.png)
  
  页面管理：
  ![](img/admin-pages.png)
@@ -83,7 +83,7 @@
  ![](img/admin-links.png)
  
  评论邮件通知：
- ![](img/admin-article.png)
+ ![](img/admin-email.png)
  
  系统设置：
  ![](img/admin-setting.png)
