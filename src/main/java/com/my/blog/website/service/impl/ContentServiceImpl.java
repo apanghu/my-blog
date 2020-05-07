@@ -113,6 +113,18 @@ public class ContentServiceImpl implements IContentService {
         return pageInfo;
     }
 
+
+    @Override
+    public List<ContentVo> findContentList() {
+        LOGGER.debug("Enter findContentList method");
+        ContentVoExample example = new ContentVoExample();
+        example.setOrderByClause("created desc");
+        example.createCriteria().andTypeEqualTo(Types.ARTICLE.getType()).andStatusEqualTo(Types.PUBLISH.getType());
+        List<ContentVo> data = contentDao.selectByExampleWithBLOBs(example);
+        LOGGER.debug("Exit findContentList method");
+        return data;
+    }
+
     @Override
     public ContentVo getContents(String id) {
         if (StringUtils.isNotBlank(id)) {

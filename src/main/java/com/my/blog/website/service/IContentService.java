@@ -6,6 +6,7 @@ import com.my.blog.website.modal.Vo.ContentVoExample;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/3/13 013.
@@ -104,4 +105,6 @@ public interface IContentService {
     void updateCategory(String ordinal, String newCatefory);
 
     Boolean importArticles(HttpServletRequest request, MultipartFile file);
+
+    List<ContentVo> findContentList();
 }

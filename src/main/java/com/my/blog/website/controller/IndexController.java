@@ -17,6 +17,7 @@ import com.my.blog.website.service.ISiteService;
 import com.my.blog.website.utils.*;
 import com.vdurmont.emoji.EmojiParser;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,8 @@ public class IndexController extends BaseController {
 
     @Resource
     private ISiteService siteService;
-
+    @Resource
+    private SiteMapUtils siteMapUtils;
 
     /**
      * @param request
@@ -412,7 +415,7 @@ public class IndexController extends BaseController {
      * @param chits
      */
     @Transactional(rollbackFor = TipException.class)
-    private void updateArticleHit(Integer cid, Integer chits) {
+    public void updateArticleHit(Integer cid, Integer chits) {
         Integer hits = cache.hget("article", "hits");
         if (chits == null) {
             chits = 0;
@@ -539,5 +542,17 @@ public class IndexController extends BaseController {
         List<MetaDto> metaList = metaService.getMetaList(Types.TAG.getType(), null, 10);
         request.setAttribute("metaList", metaList);
         return this.render("search");
+    }
+
+    /**
+     * @return : java.lang.String
+     * @author Jesse-liu
+     * @date 2020/5/7
+     * @description: 动态生成网站地图sitemap
+     **/
+    @GetMapping(value = {"sitemap.xml", "sitemap"})
+    public void getSiteMap(HttpServletResponse response) throws IOException {
+        response.setContentType(MediaType.APPLICATION_XML_VALUE);
+        response.getWriter().append(siteMapUtils.getBlogSiteMap());
     }
 }
