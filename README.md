@@ -39,6 +39,7 @@
 ## 功能如下：
 
  博客首页：
+  ![image](https://github.com/apanghu/my-blog/blob/master/img/index.png)
  ![](img/index.png)
 
  归档：
