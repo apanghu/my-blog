@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Jesse-liu
- * @description: java生成sitemap网站地图
+ * @description: java生成sitemap网站地图工具类
  * @date 2020/5/7 10:25
  */
 @Component
@@ -37,7 +37,7 @@ public class SiteMapUtils {
         sb.append(new SiteMapVo(WebConst.initConfig.get("site_url")));
         List<ContentVo> contentList = contentsService.findContentList();
         contentList.forEach(entity -> {
-            sb.append(new SiteMapVo(Commons.permalink(entity), DateKit.dateFormat(Commons.fmtdate(entity.getModified(), "yyyy-MM-dd HH:mm:ss"), "yyyy-MM-dd HH:mm:ss"), CHANGEFREQ_MONTHLY, "0.9"));
+            sb.append(new SiteMapVo(Commons.permalink(entity), DateKit.dateFormat(Commons.fmtdate(entity.getModified(), "yyyy-MM-dd"), "yyyy-MM-dd"), CHANGEFREQ_MONTHLY, "0.9"));
         });
         sb.append(END_DOC);
         return sb.toString();

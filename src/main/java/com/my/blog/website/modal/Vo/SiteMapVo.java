@@ -8,29 +8,10 @@ import java.util.Locale;
 
 /**
  * @author Jesse-liu
- * @description: TODO
+ * @description: 网站地图entity
  * @date 2020/5/7 9:09
  */
 public class SiteMapVo {
-
-    public SiteMapVo() {
-
-    }
-
-    public SiteMapVo(String loc) {
-        this.loc = loc;
-        this.lastmod = new Date();
-        this.changefreq = SiteMapUtils.CHANGEFREQ_ALWAYS;
-        this.priority = "1.0";
-    }
-
-    public SiteMapVo(String loc, Date lastmod, String changefreq, String priority) {
-        this.loc = loc;
-        this.lastmod = lastmod;
-        this.changefreq = changefreq;
-        this.priority = priority;
-    }
-
     /**
      * url https://www.xxx.com
      */
@@ -80,13 +61,31 @@ public class SiteMapVo {
         this.priority = priority;
     }
 
+    public SiteMapVo() {
+
+    }
+
+    public SiteMapVo(String loc) {
+        this.loc = loc;
+        this.lastmod = new Date();
+        this.changefreq = SiteMapUtils.CHANGEFREQ_ALWAYS;
+        this.priority = "1.0";
+    }
+
+    public SiteMapVo(String loc, Date lastmod, String changefreq, String priority) {
+        this.loc = loc;
+        this.lastmod = lastmod;
+        this.changefreq = changefreq;
+        this.priority = priority;
+    }
+
     @Override
     /** 重写 toString 适应xml格式 */
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("<url>");
         sb.append("<loc>" + loc + "</loc>");
-        sb.append("<lastmod>" + DateUtils.format(lastmod, "yyyy-MM-dd HH:mm:ss", Locale.SIMPLIFIED_CHINESE) + "</lastmod>");
+        sb.append("<lastmod>" + DateUtils.format(lastmod, "yyyy-MM-dd", Locale.SIMPLIFIED_CHINESE) + "</lastmod>");
         sb.append("<changefreq>" + changefreq + "</changefreq>");
         sb.append("<priority>" + priority + "</priority>");
         sb.append("</url>");
