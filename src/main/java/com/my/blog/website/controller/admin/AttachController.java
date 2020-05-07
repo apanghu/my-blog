@@ -84,6 +84,7 @@ public class AttachController extends BaseController {
                     String ftype = TaleUtils.isImage(multipartFile.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType();
                     File file = new File(CLASSPATH + fkey);
                     try {
+                        //通过复制文件的方式上传文件
                         FileCopyUtils.copy(multipartFile.getInputStream(), new FileOutputStream(file));
                     } catch (IOException e) {
                         e.printStackTrace();

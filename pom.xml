@@ -141,6 +141,8 @@
 
     <!-- 普通的maven打包方式 -->
     <build>
+        <!-- 产生的构件的文件名，默认值是${artifactId}-${version}。 -->
+        <finalName>projectname</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

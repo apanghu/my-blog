@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class SiteMapUtils {
 
-    public final static String BEGIN_DOC = "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
+    public final static String BEGIN_DOC = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
     public final static String END_DOC = "</urlset>";
     public final static String CHANGEFREQ_ALWAYS = "always";
     public final static String CHANGEFREQ_HOURLY = "hourly";

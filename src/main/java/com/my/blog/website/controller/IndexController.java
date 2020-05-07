@@ -552,6 +552,7 @@ public class IndexController extends BaseController {
      **/
     @GetMapping(value = {"sitemap.xml", "sitemap"})
     public void getSiteMap(HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_XML_VALUE);
         response.getWriter().append(siteMapUtils.getBlogSiteMap());
     }
