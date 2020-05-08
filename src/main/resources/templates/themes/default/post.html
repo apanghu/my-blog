@@ -23,24 +23,85 @@
     <div id="post-content" class="post-content" itemprop="articleBody">
         <p class="post-tags" th:utext="${commons.show_tags(article.tags)}"></p>
         <th:block th:utext="${commons.article(article.content)}"/>
+
         <p class="post-info">
-        <div class="comment-header">
-            <!--设置get请求的参数-->
-            <img class="avatar"
-                 th:src="@{${commons.gravatar('2683961691@qq.com')}(s='80',r='G',d='')}"
-                 th:title="${article.authorId}"
-                 width="80" height="80"/>
-            <span class="comment-author">
-                                <a th:href="${commons.site_url('/author')}+'/'+${article.author}"
-                                   rel="external nofollow"
-                                   th:text="${article.author}"></a>
-                            </span>
-        </div>
-        本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名,转载请标明出处<br/>最后编辑时间为:
-        <th:block th:text="${commons.fmtdate(article.modified, 'yyyy/MM/dd HH:mm')}"/>
-        </p>
+            <!--作者信息区-->
+            <div id="authorarea">
+                <img class="avatar"
+                     th:src="@{${commons.gravatar('2683961691@qq.com')}(s='80',r='G',d='')}"
+                     th:title="${article.authorId}"
+                     width="80" height="80"/>
+                <div class="authorinfo">
+                    <h3><a th:href="${commons.site_url('/author')}+'/'+${article.author}"
+                           rel="external nofollow"
+                           th:text="${article.author}"></a></h3>
+        <p th:utext="${commons.site_option('site_description')}"></p>
+    </div>
+    </div>
+    <!--  <div class="comment-header">
+
+          &lt;!&ndash;设置get请求的参数&ndash;&gt;
+          <img class="avatar"
+               th:src="@{${commons.gravatar('2683961691@qq.com')}(s='80',r='G',d='')}"
+               th:title="${article.authorId}"
+               width="80" height="80"/>
+          <span class="comment-author">
+                                  <a th:href="${commons.site_url('/author')}+'/'+${article.author}"
+                                     rel="external nofollow"
+                                     th:text="${article.author}"></a>
+                              </span>
+      </div>-->
+    本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名,转载请标明出处<br/>最后编辑时间为:
+    <th:block th:text="${commons.fmtdate(article.modified, 'yyyy/MM/dd HH:mm')}"/>
+    </p>
     </div>
 </article>
+<style>
+    #authorarea {
+        background: #f0f0f0;
+        border: 1px solid #d2d2d2;
+        padding: 10px;
+        width: 100%;
+        overflow: hidden;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    #authorarea h3 {
+        font-size: 18px;
+        color: #333;
+        margin: 0;
+        padding: 10px 10px 5px 10px;
+    }
+
+    #authorarea h3 a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+    #authorarea img {
+        border: 1px solid #D8D8D8;
+        border-radius: 50%;
+        float: left;
+        margin: 0 10px 10px 0;
+
+    }
+
+    #authorarea p {
+        color: #333;
+        margin: 0;
+        padding: 0px 10px 10px 10px;
+    }
+
+    #authorarea p a {
+        color: #333;
+    }
+
+    .authorinfo {
+        padding-left: 120px;
+    }
+</style>
 <div th:replace="themes/default/comments::comments"></div>
 <div th:replace="themes/default/footer::footer"></div>
 </body>

@@ -72,7 +72,8 @@
 <header id="header" class="header bg-white">
     <div class="navbar-container">
         <a th:href="${commons.site_url('')}" class="navbar-logo">
-            <img th:src="@{/user/img/logo.png}" alt="首页"/>
+            <img th:src="${commons.site_option('site_logo')}"
+                 th:alt="${commons.site_title()}"/>
         </a>
         <div class="navbar-menu">
             <a th:href="${commons.site_url('/archives')}">归档</a>

@@ -37,7 +37,7 @@
                     <div class="info-text">
                         <a th:href="${commons.site_url()}" target="_blank"
                            class="info-logo">
-                            <img th:src="@{/user/img/logo.png}"
+                            <img th:src="${commons.site_logo()}"
                                  th:alt="${commons.site_title()}"/>
                         </a>
                         <p><a href="http://beian.miit.gov.cn" target="_blank"
@@ -45,8 +45,10 @@
                         <p><span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}"> </span>
                             &copy; 版权所有
                             <a
-                                    href="https://github.com/zhisheng17/blog" target="_blank"
-                                    rel="nofollow">My Blog</a> 保留一切权利
+                                    th:href="${commons.site_url()}" target="_blank"
+                                    rel="nofollow">
+                                <th:block th:text="${commons.site_option('site_title','My Blog')}"></th:block>
+                            </a> 保留一切权利
                             <script type="text/javascript"
                                     src="https://s5.cnzz.com/z_stat.php?id=1275311783&web_id=1275311783"></script>
                         </p>

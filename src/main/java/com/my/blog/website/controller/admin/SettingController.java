@@ -81,7 +81,13 @@ public class SettingController extends BaseController {
 
             optionService.saveOptions(querys);
 
-            WebConst.initConfig = querys;
+            List<OptionVo> voList = optionService.getOptions();
+            Map<String, String> options = new HashMap<>();
+            voList.forEach((option) -> {
+                options.put(option.getName(), option.getValue());
+            });
+
+            WebConst.initConfig = options;
 
             if (StringUtils.isNotBlank(site_theme)) {
                 BaseController.THEME = "themes/" + site_theme;
