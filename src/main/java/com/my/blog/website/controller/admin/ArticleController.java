@@ -20,6 +20,7 @@ import com.my.blog.website.utils.TaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,30 +54,28 @@ public class ArticleController extends BaseController {
      *
      * @param page
      * @param limit
-     * @param request
      * @return
      */
     @GetMapping(value = "")
     public String index(@RequestParam(value = "page", defaultValue = "1") int page,
-                        @RequestParam(value = "limit", defaultValue = "15") int limit, HttpServletRequest request) {
+                        @RequestParam(value = "limit", defaultValue = "15") int limit, Model model) {
         ContentVoExample contentVoExample = new ContentVoExample();
         contentVoExample.setOrderByClause("created desc");
         contentVoExample.createCriteria().andTypeEqualTo(Types.ARTICLE.getType());
         PageInfo<ContentVo> contentsPaginator = contentsService.getArticlesWithpage(contentVoExample, page, limit);
-        request.setAttribute("articles", contentsPaginator);
+        model.addAttribute("articles", contentsPaginator);
         return "admin/article_list";
     }
 
     /**
      * 文章发表
      *
-     * @param request
      * @return
      */
     @GetMapping(value = "/publish")
-    public String newArticle(HttpServletRequest request) {
+    public String newArticle(Model model) {
         List<MetaVo> categories = metasService.getMetas(Types.CATEGORY.getType());
-        request.setAttribute("categories", categories);
+        model.addAttribute("categories", categories);
         return "admin/article_edit";
     }
 
@@ -84,16 +83,15 @@ public class ArticleController extends BaseController {
      * 文章编辑
      *
      * @param cid
-     * @param request
      * @return
      */
     @GetMapping(value = "/{cid}")
-    public String editArticle(@PathVariable String cid, HttpServletRequest request) {
+    public String editArticle(@PathVariable String cid, Model model) {
         ContentVo contents = contentsService.getContents(cid);
-        request.setAttribute("contents", contents);
+        model.addAttribute("contents", contents);
         List<MetaVo> categories = metasService.getMetas(Types.CATEGORY.getType());
-        request.setAttribute("categories", categories);
-        request.setAttribute("active", "article");
+        model.addAttribute("categories", categories);
+        model.addAttribute("active", "article");
         return "admin/article_edit";
     }
 
@@ -101,7 +99,6 @@ public class ArticleController extends BaseController {
      * 文章发表
      *
      * @param contents
-     * @param request
      * @return
      */
     @PostMapping(value = "/publish")
@@ -132,7 +129,6 @@ public class ArticleController extends BaseController {
      * 文章更新
      *
      * @param contents
-     * @param request
      * @return
      */
     @PostMapping(value = "/modify")
@@ -160,7 +156,6 @@ public class ArticleController extends BaseController {
      * 删除文章
      *
      * @param cid
-     * @param request
      * @return
      */
     @RequestMapping(value = "/delete")
@@ -187,7 +182,6 @@ public class ArticleController extends BaseController {
      * 文章置顶/取消置顶
      *
      * @param cid
-     * @param request
      * @return
      */
     @RequestMapping(value = "/top")
@@ -268,7 +262,6 @@ public class ArticleController extends BaseController {
     }
 
     /**
-     * @param request
      * @param response
      * @return : java.lang.String
      * @author Jesse-liu
