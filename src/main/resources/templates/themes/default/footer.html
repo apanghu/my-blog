@@ -51,6 +51,7 @@
                             </a> 保留一切权利
                             <script type="text/javascript"
                                     src="https://s5.cnzz.com/z_stat.php?id=1275311783&web_id=1275311783"></script>
+                        <p id="timeShow"></p>
                         </p>
                     </div>
                 </div>
@@ -418,6 +419,12 @@
             $('html,body').animate({scrollTop: '0px'}, 800);
         });
     });
+
+    window.onload = function () {
+        var loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+        $("#timeShow").html('加载本页耗时 ' + loadTime + 'ms');
+    }
+
 </script>
 </body>
 </html>
