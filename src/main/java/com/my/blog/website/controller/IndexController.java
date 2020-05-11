@@ -174,6 +174,13 @@ public class IndexController extends BaseController {
         }
     }
 
+    /**
+     * @param list
+     * @return : java.util.List<com.my.blog.website.modal.Bo.CommentBo>
+     * @author Jesse-liu
+     * @date 2020/5/11
+     * @description: 形成评论递归书
+     **/
     public static List<CommentBo> listToTree(List<CommentBo> list) {
         //用递归找子。
         List<CommentBo> treeList = new ArrayList<CommentBo>();
@@ -187,14 +194,15 @@ public class IndexController extends BaseController {
     }
 
     private static CommentBo findChildren(CommentBo tree, List<CommentBo> list) {
-        for (CommentBo node : list) {
-            if (node.getParent().longValue() == tree.getCoid().longValue()) {
+        list.forEach(entity -> {
+            if (entity.getParent().longValue() == tree.getCoid().longValue()) {
                 if (tree.getChildren() == null) {
                     tree.setChildren(new ArrayList<CommentVo>());
                 }
-                tree.getChildren().add(findChildren(node, list));
+                entity.setParentAuthor(tree.getAuthor());
+                tree.getChildren().add(findChildren(entity, list));
             }
-        }
+        });
         return tree;
     }
 

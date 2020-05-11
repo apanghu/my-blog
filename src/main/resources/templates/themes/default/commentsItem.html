@@ -9,7 +9,6 @@
 <th:block th:fragment="row(comments,lv)">
     <ol class="comment-list">
         <th:block th:each="comment :${comments}">
-
             <li th:id="'li-comment-'+${comment.coid}" class="comment-body comment-parent comment-odd">
                 <div th:id="'comment-'+${comment.coid}">
                     <div class="comment-view" onclick="">
@@ -27,7 +26,7 @@
                         <div class="comment-content">
                             <span class="comment-author-at">
                                 <a th:if="${comment.parent !=0}"
-                                   th:utext="'@'+${comment.author}"
+                                   th:utext="'@'+${comment.parentAuthor}"
                                    th:href="'#comment-' +${comment.parent}"></a></span>
                             <p th:utext="${commons.article(comment.content)}"></p>
                         </div>
@@ -45,7 +44,6 @@
                 <th:block th:unless="${#lists.isEmpty(comment.children)}"
                           th:include="themes/default/commentsItem::row(${comment.children},${lv+1})"/>
             </li>
-
         </th:block>
     </ol>
 </th:block>

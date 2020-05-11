@@ -72,12 +72,24 @@ public class CommentVo implements Serializable {
     private Integer parent;
 
     /**
+     * 父级作者名称
+     */
+    private String parentAuthor;
+
+    /**
      * 评论内容
      */
     private String content;
 
     private static final long serialVersionUID = 1L;
 
+    public String getParentAuthor() {
+        return parentAuthor;
+    }
+
+    public void setParentAuthor(String parentAuthor) {
+        this.parentAuthor = parentAuthor;
+    }
 
     public Integer getCoid() {
         return coid;
