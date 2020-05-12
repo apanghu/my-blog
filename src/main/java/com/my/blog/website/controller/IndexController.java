@@ -563,5 +563,7 @@ public class IndexController extends BaseController {
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_XML_VALUE);
         response.getWriter().append(siteMapUtils.getBlogSiteMap());
+        response.getWriter().flush();
+        response.getWriter().close();
     }
 }
