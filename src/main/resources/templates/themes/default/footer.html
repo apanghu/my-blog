@@ -375,37 +375,6 @@
     _emoji.emojiParse(document.querySelectorAll(".comment-list p"));
     _emoji.emojiParse(document.querySelectorAll("#newComments li a"));
 </script>
-<!--<script type="text/javascript">
-    //By https://www.cnblogs.com/skyhu365/p/12652916.html
-    $(function () {
-        //延迟1秒加载, 等博客园的侧栏加载完毕, 不然导航目录距离顶部的高度会不对
-        setTimeout(function () {
-            loadScroller();
-        }, 1000);
-    })
-
-    //加载导航目录
-    function loadScroller() {
-        //先获取第一个h标签, 之后循环时作为上一个h标签
-        var $ph = $('#post-content :header:eq(0)');
-        if ($ph.length > 0) {
-            //设置层级为1
-            $ph.attr('offset', '1');
-            //取当前边栏的宽度
-            //$('#directory-content').css('width', $('#directory').width());
-            //让导航目录停留在页面顶端
-            $('#post-content :header').each(function (i) {
-                var $h = $(this);
-                //设置h标签的id, 编号从0开始
-                $h.attr('id', 'scroller-' + i);
-                //添加h标签的目录内容
-                $('#directory ul').append('<li>' + (i + 1) + '<a href="#scroller-' + i + '">' + $h.text() + '</a></li>');
-                //最后设置自己为上一个h标签
-            });
-        }
-    }
-</script>-->
-
 <script type="text/javascript">
     $(function () {
         $(window).scroll(function () {

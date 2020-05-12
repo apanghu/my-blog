@@ -19,16 +19,18 @@
                     <input type="hidden" name="_csrf_token" th:value="${_csrf_token}"/>
                     <input type="text" name="author" maxlength="12" id="author"
                            class="form-control input-control clearfix"
-                           required="required" placeholder="姓名 (*)"
+                           required="required"
+                           placeholder="姓名 (*)"
                     />
                     <input type="email" name="mail" id="mail" class="form-control input-control clearfix"
-                           required="required" placeholder="邮箱 (*)"
+                           required="required"
+                           placeholder="邮箱 (*)"
                     />
                     <input type="url" name="url" id="url" class="form-control input-control clearfix"
-                           required="required" placeholder="网址 (http://)"
+                           required="required"
+                           placeholder="网址 (http://)"
                     />
                     <div id="editArea" contenteditable="true" name="content" class="form-control"
-                         placeholder="以上信息可以为空,评论不能为空哦!"
                          required="required" minlength="5"
                          maxlength="2000"></div>
 

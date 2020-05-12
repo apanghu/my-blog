@@ -436,6 +436,17 @@ public final class Commons {
     private static final String[] ICONS = {"bg-ico-book", "bg-ico-game", "bg-ico-note", "bg-ico-chat", "bg-ico-code", "bg-ico-image", "bg-ico-web", "bg-ico-link", "bg-ico-design", "bg-ico-lock"};
 
     /**
+     * 随机获取一张头像图片
+     *
+     * @return
+     */
+    public static int show_avatar() {
+        int a = (int) (Math.random() * 30);
+        return a;
+    }
+
+
+    /**
      * 显示文章图标
      *
      * @param cid
