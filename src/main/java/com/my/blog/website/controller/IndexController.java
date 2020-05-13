@@ -225,7 +225,7 @@ public class IndexController extends BaseController {
     @Transactional(rollbackFor = TipException.class)
     public RestResponseBo comment(HttpServletRequest request, HttpServletResponse response,
                                   CommentVo commentVo,
-                                  @RequestParam String _csrf_token) {
+                                  @RequestParam String _csrf_token) throws IOException {
 
         String ref = request.getHeader("Referer");
         if (StringUtils.isBlank(ref) || StringUtils.isBlank(_csrf_token)) {
@@ -261,7 +261,7 @@ public class IndexController extends BaseController {
             return RestResponseBo.fail("请输入200个字符以内的评论");
         }
 
-        String val = IPKit.getIpAddrByRequest(request) + ":" + commentVo.getCid();
+        String val = IpUtils.getIpAddress(request) + ":" + commentVo.getCid();
         Integer count = cache.hget(Types.COMMENTS_FREQUENCY.getType(), val);
         if (null != count && count > 0) {
             return RestResponseBo.fail("您发表评论太快了，请过会再试");

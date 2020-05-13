@@ -18,9 +18,12 @@ import javax.annotation.Resource;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Resource
     private BaseInterceptor baseInterceptor;
+    @Resource
+    private IpInterceptor ipInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(ipInterceptor);
         registry.addInterceptor(baseInterceptor);
     }
 

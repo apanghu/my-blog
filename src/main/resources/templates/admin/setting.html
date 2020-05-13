@@ -248,6 +248,35 @@
                         </div>
                     </div>
 
+                    <!--      <div class="col-md-6">
+                              <div class="panel panel-color panel-info">
+                                  <div class="panel-heading">
+                                      <h3 class="panel-title">黑名单设置</h3>
+                                  </div>
+                                  <div class="panel-body">
+                                      <form class="form-horizontal" role="form" id="ipBlack-form">
+                                          <div class="form-group">
+                                              <label class="col-md-3 control-label">IP黑名单</label>
+                                              <div class="col-md-9">
+                                                  <textarea type="text" NAME="ipBlack" class="form-control"
+                                                            style="width: 100%;height: auto" placeholder="IP黑名单"
+                                                            th:text="${ipBlack}" required="required"
+                                                            aria-required="true"></textarea>
+                                              </div>
+                                          </div>
+
+
+                                          <div class="clearfix pull-right">
+                                              <button type="button" class="btn btn-info waves-effect waves-light"
+                                                      onclick="saveIpBlackSetting()">
+                                                  保存设置
+                                              </button>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>-->
+
                 </div>
                 <div th:replace="admin/footer :: footer-content"></div>
             </div>
@@ -309,6 +338,29 @@
                 } else {
                     tale.alertError(result.msg || '设置保存失败');
                 }
+            }
+        });
+    }
+
+
+    /**
+     * 保存IP黑名单设置
+     */
+    function saveIpBlackSetting() {
+        var param = $('#ipBlack-form').serialize();
+        tale.post({
+            url: '/admin/setting/ipBlackSetting',
+            data: param,
+            success: function (result) {
+                if (result && result.success) {
+                    tale.alertOk('设置保存成功');
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 200)
+                } else {
+                    tale.alertError(result.msg || '设置保存失败');
+                }
+
             }
         });
     }

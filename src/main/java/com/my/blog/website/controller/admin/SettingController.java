@@ -15,15 +15,18 @@ import com.my.blog.website.service.IOptionService;
 import com.my.blog.website.service.ISiteService;
 import com.my.blog.website.utils.GsonUtils;
 import com.my.blog.website.utils.MapCache;
+import com.my.blog.website.utils.PropertiesUtil;
 import com.my.blog.website.utils.SendMailManager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,15 +54,19 @@ public class SettingController extends BaseController {
      * 系统设置
      */
     @GetMapping(value = "")
-    public String setting(HttpServletRequest request) {
+    public String setting(Model model) throws IOException {
         List<OptionVo> voList = optionService.getOptions();
         MailBoxVo mailBoxVo = maliBoxService.select();
         Map<String, String> options = new HashMap<>();
         voList.forEach((option) -> {
             options.put(option.getName(), option.getValue());
         });
-        request.setAttribute("options", options);
-        request.setAttribute("mailBoxVo", mailBoxVo);
+
+        //  PropertiesUtil propertiesUtil = new PropertiesUtil("src/main/resources/ip-black.properties");
+        //  model.addAttribute("ipBlack", propertiesUtil.getProps().getProperty("ip_blacklist"));
+
+        model.addAttribute("options", options);
+        model.addAttribute("mailBoxVo", mailBoxVo);
         return "admin/setting";
     }
 
@@ -204,4 +211,19 @@ public class SettingController extends BaseController {
 
         return RestResponseBo.ok();
     }
+
+    @PostMapping("ipBlackSetting")
+    @ResponseBody
+    public RestResponseBo ipBlackSetting(@RequestParam("ipBlack") String ipBlack) {
+        try {
+            PropertiesUtil propertiesUtil = new PropertiesUtil("src/main/resources/ip-black.properties");
+            propertiesUtil.setValue("ip_blacklist", ipBlack);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return RestResponseBo.fail();
+        }
+
+        return RestResponseBo.ok();
+    }
+
 }
