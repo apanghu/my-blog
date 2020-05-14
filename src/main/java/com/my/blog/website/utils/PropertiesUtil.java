@@ -1,9 +1,6 @@
 package com.my.blog.website.utils;
 
-import org.springframework.stereotype.Component;
-
 import java.io.*;
-import java.net.URISyntaxException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +11,6 @@ import java.util.Properties;
  * @description: 配置文件读取工具类
  * @date 2020/5/13 11:24
  */
-@Component("PropertiesUtil")
 public class PropertiesUtil {
     //配置文件的路径
     private String configPath = null;
@@ -24,18 +20,14 @@ public class PropertiesUtil {
      */
     private Properties props = null;
 
-    /**
-     * 默认构造函数，用于sh运行，自动找到classpath下的config.properties。
-     */
     public PropertiesUtil() throws IOException {
         if (props == null) {
-            InputStreamReader in = new InputStreamReader(new FileInputStream("src/main/resources/application.properties"), "utf-8");
+            InputStreamReader in = new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream("ip-black.properties"), "utf-8");
             props = new Properties();
             props.load(in);
             //关闭资源
             in.close();
         }
-
     }
 
     /**
@@ -47,7 +39,7 @@ public class PropertiesUtil {
      **/
     public PropertiesUtil(String path) throws IOException {
         if (props == null) {
-            InputStreamReader in = new InputStreamReader(new FileInputStream(path), "utf-8");
+            InputStreamReader in = new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream(path), "utf-8");
             configPath = path;
             props = new Properties();
             props.load(in);
@@ -107,14 +99,14 @@ public class PropertiesUtil {
      * @return key 键对应的值
      * @throws IOException
      */
-    public void setValue(String key, String value) throws IOException, URISyntaxException {
+    public void setValue(String key, String value) throws IOException {
         Properties prop = new Properties();
-        InputStreamReader fis = new InputStreamReader(new FileInputStream(this.configPath), "utf-8");
+        InputStreamReader fis = new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream(this.configPath), "utf-8");
         // 从输入流中读取属性列表（键和元素对）
         prop.load(fis);
         // 调用 Hashtable 的方法 put。使用 getProperty 方法提供并行性。
         // 强制要求为属性的键和值使用字符串。返回值是 Hashtable 调用 put 的结果。
-        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("src/main/resources/ip-black.properties"), "utf-8");
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("ip-black.properties"), "utf-8");
         prop.setProperty(key, value);
         // 以适合使用 load 方法加载到 Properties 表中的格式，
         // 将此 Properties 表中的属性列表（键和元素对）写入输出流

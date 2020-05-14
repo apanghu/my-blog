@@ -47,13 +47,13 @@ public class IpUtils {
      */
     public static boolean chickIpBreak(String ip) throws IOException {
         if (p == null) {
-            p = new PropertiesUtil("src/main/resources/ip-black.properties");
+            p = new PropertiesUtil("ip-black.properties");
         } else {
             String str = new SimpleDateFormat("MMddHHmmss").format(new Date());
             str = str.substring(0, 9);
             if (date == null || !date.equals(str)) {
                 date = str;
-                p = new PropertiesUtil("src/main/resources/ip-black.properties");
+                p = new PropertiesUtil("ip-black.properties");
             }
         }
         Enumeration en = p.getProps().propertyNames();
@@ -61,12 +61,12 @@ public class IpUtils {
             String key = (String) en.nextElement();
             if (StringUtils.isNotBlank(key) && key.contains("~")) {
                 String[] ipTemps = key.split("~");
-                if (Long.parseLong(ipTemps[0]) <= IpUtils.ipToLong(ip) &&
-                        IpUtils.ipToLong(ip) <= Long.parseLong(ipTemps[1])) {
+                if (!isLocalIp(ip) && (Long.parseLong(ipTemps[0]) <= IpUtils.ipToLong(ip) &&
+                        IpUtils.ipToLong(ip) <= Long.parseLong(ipTemps[1]))) {
                     return true;
                 }
 
-            } else if (key.equals(IpUtils.ipToLong(ip).toString())) {
+            } else if (!isLocalIp(ip) && key.equals(IpUtils.ipToLong(ip).toString())) {
                 return true;
             }
         }
@@ -143,5 +143,14 @@ public class IpUtils {
         }
 
         return ip;
+    }
+
+    /***
+     * 服务器是否是本机ip
+     * @param ip
+     * @return
+     */
+    public static boolean isLocalIp(String ip) throws IOException {
+        return ip.equals("127.0.0.1") || ip.equals("localhost") || ip.equals("0:0:0:0:0:0:0:1");
     }
 }
