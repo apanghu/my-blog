@@ -93,7 +93,8 @@
                                             <th:block th:text="${commons.fmtdate(comment.created,'MM月dd日HH:mm')}"/>
                                             ：<a
                                                 th:href="${commons.site_url('/article/')}+${comment.cid}+'#comments'"
-                                                target="_blank" th:utext="${commons.article(comment.content)}"></a>
+                                                target="_blank"
+                                                th:utext="${#strings.abbreviate(commons.article(comment.content),45)}"></a>
                                         </li>
                                     </ul>
                                 </div>

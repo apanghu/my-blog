@@ -17,19 +17,21 @@
                     <input type="hidden" name="coid" id="coid"/>
                     <input type="hidden" name="cid" id="cid" th:value="${article.cid}"/>
                     <input type="hidden" name="_csrf_token" th:value="${_csrf_token}"/>
-                    <input type="text" name="author" maxlength="12" id="author"
-                           class="form-control input-control clearfix"
-                           required="required"
-                           placeholder="姓名 (*)"
-                    />
-                    <input type="email" name="mail" id="mail" class="form-control input-control clearfix"
-                           required="required"
-                           placeholder="邮箱 (*)"
-                    />
-                    <input type="url" name="url" id="url" class="form-control input-control clearfix"
-                           required="required"
-                           placeholder="网址 (http://)"
-                    />
+                    <th:block th:if="${#strings.isEmpty(session.login_user)}">
+                        <input type="text" name="author" maxlength="12" id="author"
+                               class="form-control input-control clearfix"
+                               required="required"
+                               placeholder="姓名 (*)"
+                        />
+                        <input type="email" name="mail" id="mail" class="form-control input-control clearfix"
+                               required="required"
+                               placeholder="邮箱 (*)"
+                        />
+                        <input type="url" name="url" id="url" class="form-control input-control clearfix"
+                               required="required"
+                               placeholder="网址 (http://)"
+                        />
+                    </th:block>
                     <div id="editArea" contenteditable="true" name="content" class="form-control"
                          required="required" minlength="5"
                          maxlength="2000"></div>

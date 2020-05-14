@@ -237,6 +237,14 @@ public class IndexController extends BaseController {
             return RestResponseBo.fail(ErrorCode.BAD_REQUEST);
         }
 
+        UserVo userVo = TaleUtils.getLoginUser(request);
+        if (userVo != null) {
+            commentVo.setAuthor("作者菌");
+            // commentVo.setAuthor(userVo.getScreenName());
+            commentVo.setMail(userVo.getEmail());
+            commentVo.setUrl(WebConst.initConfig.get("site_url"));
+        }
+
         if (null == commentVo.getCid() || StringUtils.isBlank(commentVo.getContent())
                 || StringUtils.isBlank(commentVo.getAuthor())
                 || StringUtils.isBlank(commentVo.getMail())
@@ -256,6 +264,7 @@ public class IndexController extends BaseController {
         if (StringUtils.isNotBlank(commentVo.getUrl()) && !PatternKit.isURL(commentVo.getUrl())) {
             return RestResponseBo.fail("请输入正确的URL格式");
         }
+
 
         if (commentVo.getContent().length() > 200) {
             return RestResponseBo.fail("请输入200个字符以内的评论");

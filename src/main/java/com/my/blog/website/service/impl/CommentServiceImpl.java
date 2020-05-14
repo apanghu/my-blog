@@ -48,8 +48,8 @@ public class CommentServiceImpl implements ICommentService {
         if (StringUtils.isBlank(comments.getContent())) {
             throw new TipException("评论内容不能为空");
         }
-        if (comments.getContent().length() < 5 || comments.getContent().length() > 2000) {
-            throw new TipException("评论字数在5-2000个字符");
+        if (comments.getContent().length() < 5 && comments.getContent().length() > 200) {
+            throw new TipException("评论字数在5-200个字符");
         }
         if (null == comments.getCid()) {
             throw new TipException("评论文章不能为空");
